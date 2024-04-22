@@ -11,7 +11,7 @@ Desenvolver uma plataforma digital de registros e acompanhamento de dados (dashb
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - MongoDB
-- Python
+- Python e Plotly
 - Framework: Django
 - Cronogramas, modelos EAP, custos e planejamento do projeto
 
