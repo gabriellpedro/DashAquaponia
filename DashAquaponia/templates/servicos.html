@@ -26,9 +26,6 @@
             </div>
             <ul class="nav-list">
                 <div class="dropdown">
-                    <button class="dropbtn">Nossas soluções
-                        <i class="fa fa-caret-down"></i>
-                    </button>
                     <div class="dropdown-content">
                         <a href="">Monitoramento</a>
                         {% comment %} <a href="">Monitoramento</a>
@@ -58,8 +55,9 @@
             </div>
   
             <div class="accordion_content">
-              <a href="servicos1.html"><button class="servicos-btn">Produção de Alface</button></a>
-              <a href="servicos2.html"><button class="servicos-btn">Produção de Peixe</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeAlfaceColhida&label=Quantidade%20de%20Alface&title=Quantidade%20de%20Alface%20Colhido%20|%20Data"><button class="servicos-btn">Produção de Alface</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdePeixesTanque&label=Quantidade%20de%20Peixes&title=Quantidade%20de%20Peixes%20Tanque%20|%20Data"><button class="servicos-btn">Crescimento de Peixes  </button></a>
+              <!-- <a href="servicos2.html"><button class="servicos-btn">Produção de Peixe</button></a> -->
             </div>
           </div>
           

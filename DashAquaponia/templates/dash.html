@@ -21,11 +21,11 @@
     <header class="dashheader">
       <div class="dashinfo-header">
         <div class="dashlogo">
-          <a href=""><h3>Dash Aquaponia</h3></a>
+          <li class="nav-item"><a href="{% url 'DashAquaponia:home' %}">Home</a></li>
         </div>
       </div>
       <div class="dashinfo-header">
-        <a href=""><h3>Dashboards</h3></a>
+        <a href="{% url 'DashAquaponia:servicos' %}"><h3>Dashboards</h3></a>
         <a href=""><h3>Perfil</h3></a>
         <!-- <img src="" alt=""> -->
       </div>
@@ -43,7 +43,7 @@
     
         <div class="dashcontent">
           <div class="dashtitulo-secao">
-            <h2>Crescimento de Alface</h2>
+            <h2>{{ title }}</h2>
             <br/>
             <hr>
           </div>
@@ -51,22 +51,22 @@
           <div class="dashbox-info">
             <div class="dashbox-info-single" style="background: var(--verdeesc);">
               <div class="dashinfo-text">
-                <h3>Total Alface - Início</h3>
-                <p>100 unidades</p>
+                <h3> {{ dado_inicio_label }} - Primeiro registro</h3>
+                <p>{{ quantidade_inicial }} unidades</p>
               </div>
             </div>
       
             <div class="dashbox-info-single" style="background: var(--verdeesc);">
               <div class="dashinfo-text">
-                <h3>Total Alface - Final</h3>
-                <p>500 unidades</p>
+                <h3> {{ dado_inicio_label }} - Último registro</h3>
+                <p> {{ quantidade_final }} unidades</p>
               </div>
             </div>
       
             <div class="dashbox-info-single" style="background: var(--verdeesc);">
               <div class="dashinfo-text">
-                <h3>Crescimento Total</h3>
-                <p>400 unidades</p>
+                <h3>{{ dado_inicio_label }} - Total</h3>
+                <p>{{ quantidade_total }} unidades</p>
               </div>
             </div>
           </div>

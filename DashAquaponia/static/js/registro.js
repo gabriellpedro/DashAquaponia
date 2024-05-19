@@ -1,3 +1,4 @@
+
 var input = document.getElementById("checkVenda");
 var input2 = document.querySelector("#qtdeVendaPeixe");
 input2.disabled = true

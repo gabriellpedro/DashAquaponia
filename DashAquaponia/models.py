@@ -11,13 +11,14 @@ class DashModel(django_models.Model):
     statusTanque = models.CharField(verbose_name="Status", max_length=75)
     valorAlface = models.FloatField(verbose_name="ValorAlface")
     valorPeixe = models.FloatField(verbose_name="ValorPeixe")
+    qtdeVendaPeixe = models.IntegerField(verbose_name="VendaPeixe")
+    qtdeVendaAlface = models.IntegerField(verbose_name="VendaAlface")
     dataInspecao = models.DateField(verbose_name="Data")
     idCliente = models.IntegerField(verbose_name="IdCliente")
     idTanque = models.IntegerField(verbose_name="IdTanque")
     qtdeAgua = models.FloatField(verbose_name="qtdeAgua")
     qtdeAlfaceColhida =  models.IntegerField(verbose_name="AlfaceColhido")
     qtdeAlfacePlantada = models.IntegerField(verbose_name="AlfacePlantado")
-    qtdeAlfaceTotal = models.IntegerField(verbose_name="TotalAlfaceColhido")
     qtdePeixesTanque = models.IntegerField(verbose_name="PeixesNoTanque")
 
     class Meta:

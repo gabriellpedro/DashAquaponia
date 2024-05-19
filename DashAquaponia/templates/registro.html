@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
 </head>
+
 <body>
     <nav>
         <a class="logo" href="/home">Dash Aquaponia</a>
@@ -25,22 +27,23 @@
             <div class="line"></div>
         </div>
         <ul class="nav-list">
-            <li class="nav-item"><a href="{% url 'DashAquaponia:dash' %}">Dashboards</a></li>
+            <li class="nav-item"><a href="{% url 'DashAquaponia:servicos' %}">Dashboards</a></li>
             <li class="nav-item"><a href="{% url 'DashAquaponia:logout' %}">Logout</a></li>
         </ul>
 
         <!-- <div class="btn-expandir">
             <button>perfil</button>
         </div> -->
-</nav>
+    </nav>
 </body>
+
 <body class="registrobody">
     <form action={% url 'DashAquaponia:registro' %} method="POST">
         {% csrf_token %}
         <div class="registrocontainer">
             <h1>Registro Colheita</h1>
             <div class="registrolabel">
-                <label for="qtdeAlimentoPeixe" >Quantidade de Alimento/Dia</label>
+                <label for="qtdeAlimentoPeixe">Quantidade de Alimento/Dia</label>
                 <input class="registroinput" type="number" id="qtdeAlimentoPeixe" name="qtdeAlimentoPeixe" required>
             </div>
             <div class="registrolabel">
@@ -51,53 +54,58 @@
                 </select>
             </div>
             <div class="registrolabel">
-                <label for="statusTanque" >Status do Tanque</label>
+                <label for="statusTanque">Status do Tanque</label>
             </div>
             <div class="registrolabel">
                 <textarea name="statustanque" id="statustanque" cols="40" rows="2" placeholder="Sem danos"></textarea>
             </div>
             <div class="registrolabel">
-                <label for="valorAlface" >Valor de venda do alface</label>
-                <input class="registroinput" type="number" id="valorAlface" name="valorAlface" required>
+                <label for="valorAlface">Valor de venda do alface</label>
+                <input class="registroinput" type="number" id="valorAlface" name="valorAlface" step="0.01" required>
             </div>
+
             <div class="registrolabel">
-                <label for="valorPeixe" >Valor de venda do peixe</label>
-                <input class="registroinput" type="number" id="valorPeixe" name="valorPeixe" required>
+                <label for="valorPeixe">Valor de venda do peixe</label>
+                <input class="registroinput" type="number" id="valorPeixe" name="valorPeixe" step="0.01" required>
             </div>
-            <div class="registrolabel">
-                <label for="checkVenda">Houve venda de peixes?</label>
-                <input class="registroinput" type="checkbox" name="checkVenda" id="checkVenda">
+
             <div class="registrolabel">
                 <label for="qtdeVendaPeixe">Quantidade de peixes vendidos</label>
                 <input class="registroinput" type="number" name="qtdeVendaPeixe" id="qtdeVendaPeixe">
             </div>
-            </div>
             <div class="registrolabel">
-                <label for="dataInspecao" >Data de inspeção do tanque</label>
+                <label for="qtdeVendaAlface">Quantidade de alfaces vendidos</label>
+                <input class="registroinput" type="number" name="qtdeVendaAlface" id="qtdeVendaAlface">
+            </div>
+            
+
+            <div class="registrolabel">
+                <label for="dataInspecao">Data de inspeção do tanque</label>
                 <input class="registroinput" type="date" id="dataInspecao" name="dataInspecao" required>
             </div>
             <div class="registrolabel">
-                <label for="qtdeAgua" >Quantidade de água no tanque</label>
+                <label for="qtdeAgua">Quantidade de água no tanque</label>
                 <input class="registroinput" type="number" id="qtdeAgua" name="qtdeAgua" required>
             </div>
 
             <div class="registrolabel">
-                <label for="qtdeAlfaceColhida" >Quantidade de alface colhido</label>
+                <label for="qtdeAlfaceColhida">Quantidade de alface colhido</label>
                 <input class="registroinput" type="number" id="qtdeAlfaceColhida" name="qtdeAlfaceColhida" required>
             </div>
             <div class="registrolabel">
-                <label for="qtdeAlfacePlantada" >Quantidade de alface plantado</label>
+                <label for="qtdeAlfacePlantada">Quantidade de alface plantado</label>
                 <input class="registroinput" type="number" id="qtdeAlfacePlantada" name="qtdeAlfacePlantada" required>
             </div>
             <div class="registrolabel">
-                <label for="qtdePeixesTanque" >Quantidade de peixes no tanque</label>
+                <label for="qtdePeixesTanque">Quantidade de peixes no tanque</label>
                 <input class="registroinput" type="number" id="qtdePeixesTanque" name="qtdePeixesTanque" required>
             </div>
-            <button class="registrobtn" type="submit" value="Cadastro" >Enviar</button>
+            <button class="registrobtn" type="submit" value="Cadastro">Enviar</button>
         </div>
     </form>
 
-    <script src="{% static 'js/registro.js' %}"></script>
+
 
 </body>
+
 </html>
