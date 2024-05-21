@@ -8,9 +8,8 @@ from rest_framework import viewsets
 from .serializers import DashSerializer
 from .forms import DashForm
 from .models import User, DashModel
-from django.db.models import Sum as Soma
 from django.contrib import messages
-from django.db.models import Sum, Min
+from django.db.models import Sum, Min, Count
 
 import pandas as pd
 import plotly.express as px
@@ -103,7 +102,30 @@ def LoginCadastroView(request):
     return render(request, "login.html")
 
 
+def calcular_media_quantidade(user_id, parametroY):
+    total_sum = (
+        DashModel.objects.filter(idCliente=user_id)
+        .aggregate(total=Sum(parametroY))
+        .get("total", 0)
+        or 0
+    )
+
+    total_count = (
+        DashModel.objects.filter(idCliente=user_id)
+        .aggregate(count=Count(parametroY))
+        .get("count", 0)
+        or 0
+    )
+
+    if total_count == 0:
+        return "TESTE"  # Evitar divisão por zero
+
+    media = total_sum / total_count
+    return media
+
+
 class DashModificar(TemplateView):
+
     def get(self, request):
         idUsuario = request.user.id
         label = request.GET.get("label", "Quantidade de Alface")
@@ -139,26 +161,96 @@ class DashModificar(TemplateView):
                     title=title,
                 )
 
-                quantity_min = "f{parametroY}__min"
-                initial_quantity = (
-                    DashModel.objects.filter(idCliente=request.user.id)
-                    .aggregate(Min(parametroY))
-                    .get(f"{parametroY}__min", 0)
-                    or 0
-                )
+                
 
-                # Obter a quantidade total de alface colhido
-                total_quantity = (
-                    DashModel.objects.filter(idCliente=request.user.id)
-                    .aggregate(Sum(parametroY))
-                    .get(f"{parametroY}__sum", 0)
-                    or 0
-                )
+                if request.GET.get("parametroY") == "valorAlface" or request.GET.get("parametroY") == "valorPeixe":
+                    
+                    #Altera o label incluindo "Média", pois nestes casos se utiliza valor em R$
+                    label_html = label + " - Média"
 
-                last_record = DashModel.objects.filter(
-                    idCliente=request.user.id
-                ).latest("dataInspecao")
-                last_quantity = getattr(last_record, parametroY, 0)
+                    #Recupera o primeiro registro do banco de dados
+                    first_record = (
+                        DashModel.objects.filter(idCliente=request.user.id)
+                        .order_by(
+                            "dataInspecao"
+                        ) 
+                        .first()
+                    )
+
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "R$"
+                    initial_quantity = str("R$ " + str(getattr(first_record, parametroY, 0)))
+
+                    #Recupera o ultimo registro do banco de dados
+                    last_record = DashModel.objects.filter(
+                        idCliente=request.user.id
+                    ).latest("dataInspecao")
+                    last_quantity_getattr = getattr(last_record, parametroY, 0)
+                    
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "R$"
+                    last_quantity = str("R$ " + str(round(last_quantity_getattr)))
+
+                    #Recupera a média dos valores do banco de dados
+                    total_quantity_media = calcular_media_quantidade(
+                        request.user.id, parametroY
+                    )
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "R$"
+                    total_quantity = str("R$ " + str(round(total_quantity_media)))
+
+                else:
+                    if request.GET.get("parametroY") == "qtdePeixesTanque":
+                        total_quantity_media = calcular_media_quantidade(
+                        request.user.id, parametroY
+                        )
+                        total_quantity = str(str(round(total_quantity_media)) + " unidades")
+                        ####
+                        #Altera o label incluindo "Total", pois nestes casos se utiliza valor em unidades
+                        label_html = label + " - Media"
+                    else:
+                        label_html = label + " - Total"
+
+                        total_quantity_soma = (
+                        DashModel.objects.filter(idCliente=request.user.id)
+                        .aggregate(Sum(parametroY))
+                        .get(f"{parametroY}__sum", 0)
+                        or 0
+                        )
+                        total_quantity = str(str(round(total_quantity_soma)) + " unidades")
+
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
+                    # total_quantity = str(str(round(total_quantity_soma)) + " unidades")
+
+                    #Recupera o primeiro registro do banco de dado
+                    first_record = (
+                        DashModel.objects.filter(idCliente=request.user.id)
+                        .order_by(
+                            "dataInspecao"
+                        ) 
+                        .first()
+                    )
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
+                    initial_quantity = str(str(getattr(first_record, parametroY, 0))+ " unidades")
+                    
+                    #Recupera o ultimo registro do banco de dados
+                    last_record = DashModel.objects.filter(
+                        idCliente=request.user.id
+                    ).latest("dataInspecao")
+                    last_quantity_getattr = getattr(last_record, parametroY, 0)
+
+                    #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
+                    last_quantity = str(str(round(last_quantity_getattr)) + " Unidades")
+                    
+                    #Recupera o total dos valores do banco de dados
+                    # total_quantity_soma = (
+                    #     DashModel.objects.filter(idCliente=request.user.id)
+                    #     .aggregate(Sum(parametroY))
+                    #     .get(f"{parametroY}__sum", 0)
+                    #     or 0
+                    # )
+
+                    # #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
+                    # total_quantity = str(str(round(total_quantity_soma)) + " unidades")
+                    
+                    ###
 
                 chart_line = line_fig.to_html()
                 chart_bar = bar_fig.to_html()
@@ -168,6 +260,7 @@ class DashModificar(TemplateView):
                     "dash_bar": chart_bar,
                     "title": title,
                     "dado_inicio_label": label,
+                    "dado_total_label": label_html,
                     "quantidade_inicial": initial_quantity,
                     "quantidade_total": total_quantity,
                     "quantidade_final": last_quantity,
@@ -237,13 +330,6 @@ class CadastroDash(TemplateView):
         data_atual = datetime.now()
         data_atual_str = data_atual.strftime("%Y-%m-%d")
 
-        somaAlface = DashModel.objects.filter(idCliente=request.user.id).aggregate(
-            Soma("qtdeAlfaceColhida")
-        )
-        somaAlfaceInt = 0
-        for chave in somaAlface:
-            somaAlfaceInt = somaAlface[chave]
-
         if request.method == "POST":
             nomeCliente = request.user
             capacidadeTanque = 900
@@ -264,10 +350,6 @@ class CadastroDash(TemplateView):
             qtdeAgua = request.POST.get("qtdeAgua")
             qtdeAlfaceColhida = request.POST.get("qtdeAlfaceColhida")
             qtdeAlfacePlantada = request.POST.get("qtdeAlfacePlantada")
-            if somaAlfaceInt == None:
-                qtdeAlfaceTotal = qtdeAlfaceColhida
-            elif somaAlfaceInt != None:
-                qtdeAlfaceTotal = somaAlfaceInt + int(qtdeAlfaceColhida)
             qtdePeixesTanque = request.POST.get("qtdePeixesTanque")
 
             # if len(DashModel.objects.filter(idCliente = request.user.id)) > 0:

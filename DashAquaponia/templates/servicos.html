@@ -65,7 +65,7 @@
           <div class="accordion_item" style="background: var(--dark2);">
             <div class="accordion_header">
               <span class="servicosspan" id="servicos_span_custos">
-                Custos
+                Variabilidade de custos
               </span>
               <div class="servicos_icon" id="servicos_id_custos">
                 +
@@ -73,8 +73,8 @@
             </div>
   
             <div class="accordion_content">
-              <a href="servicos3.html"><button class="servicos-btn">Água</button></a>
-              <a href="servicos4.html"><button class="servicos-btn">Energia</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=valorAlface&label=Variabilidade%20Alface&title=Variabilidade%20Alface%20|%20Data"><button class="servicos-btn">Variabilidade alface</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=valorPeixe&label=Variabilidade%20Alface&title=Variabilidade%20Alface%20|%20Data"><button class="servicos-btn">Variabilidade peixe</button></a>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@
           <div class="accordion_item" style="background: var(--dark2);">
             <div class="accordion_header">
               <span class="servicosspan" id="servicos_span_vendas">
-                Vendas
+                Quantidade de vendas
               </span>
               <div class="servicos_icon" id="servicos_id_vendas">
                 +
@@ -93,8 +93,8 @@
             </div>
   
             <div class="accordion_content">
-              <a href="servicos5.html"><button class="servicos-btn">Alface</button></a>
-              <a href="servicos6.html"><button class="servicos-btn">Peixe</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaAlface&label=Quantidade%20de%20Alface&title=Quantidade%20de%20Alface%20Vendido%20|%20Data"><button class="servicos-btn">Venda de Alface</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaPeixe&label=Quantidade%20de%20Alface&title=Quantidade%20de%20Alface%20Vendido%20|%20Data"><button class="servicos-btn">Venda de Peixes</button></a>
             </div>
           </div>
           
