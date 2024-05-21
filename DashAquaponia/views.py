@@ -205,9 +205,16 @@ class DashModificar(TemplateView):
                         ####
                         #Altera o label incluindo "Total", pois nestes casos se utiliza valor em unidades
                         label_html = label + " - Media"
-                    else:
-                        label_html = label + " - Total"
 
+                    elif request.GET.get("parametroY") == "qtdeAgua":
+                        total_quantity_media = calcular_media_quantidade(
+                        request.user.id, parametroY
+                        )
+                        total_quantity = str(str(round(total_quantity_media)) + " litros")
+                        ####
+                        #Altera o label incluindo "Total", pois nestes casos se utiliza valor em litros
+                        label_html = label + " - Litros"
+                    else:
                         total_quantity_soma = (
                         DashModel.objects.filter(idCliente=request.user.id)
                         .aggregate(Sum(parametroY))
@@ -215,6 +222,8 @@ class DashModificar(TemplateView):
                         or 0
                         )
                         total_quantity = str(str(round(total_quantity_soma)) + " unidades")
+
+                        label_html = label + " - Total"
 
                     #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
                     # total_quantity = str(str(round(total_quantity_soma)) + " unidades")
@@ -227,6 +236,8 @@ class DashModificar(TemplateView):
                         ) 
                         .first()
                     )
+
+                    
                     #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
                     initial_quantity = str(str(getattr(first_record, parametroY, 0))+ " unidades")
                     
@@ -237,20 +248,8 @@ class DashModificar(TemplateView):
                     last_quantity_getattr = getattr(last_record, parametroY, 0)
 
                     #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
-                    last_quantity = str(str(round(last_quantity_getattr)) + " Unidades")
+                    last_quantity = str(str(round(last_quantity_getattr)) + " unidades")
                     
-                    #Recupera o total dos valores do banco de dados
-                    # total_quantity_soma = (
-                    #     DashModel.objects.filter(idCliente=request.user.id)
-                    #     .aggregate(Sum(parametroY))
-                    #     .get(f"{parametroY}__sum", 0)
-                    #     or 0
-                    # )
-
-                    # #Transforma o dado para ser enviado ao HTML, incluindo o "unidades"
-                    # total_quantity = str(str(round(total_quantity_soma)) + " unidades")
-                    
-                    ###
 
                 chart_line = line_fig.to_html()
                 chart_bar = bar_fig.to_html()

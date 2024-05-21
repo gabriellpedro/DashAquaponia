@@ -74,7 +74,7 @@
   
             <div class="accordion_content">
               <a href="{% url 'DashAquaponia:dash' %}?parametroY=valorAlface&label=Variabilidade%20Alface&title=Variabilidade%20Alface%20|%20Data"><button class="servicos-btn">Variabilidade alface</button></a>
-              <a href="{% url 'DashAquaponia:dash' %}?parametroY=valorPeixe&label=Variabilidade%20Alface&title=Variabilidade%20Alface%20|%20Data"><button class="servicos-btn">Variabilidade peixe</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=valorPeixe&label=Variabilidade%20Peixe&title=Variabilidade%20Peixe%20|%20Data"><button class="servicos-btn">Variabilidade peixe</button></a>
             </div>
           </div>
         </div>
@@ -93,8 +93,8 @@
             </div>
   
             <div class="accordion_content">
-              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaAlface&label=Quantidade%20de%20Alface&title=Quantidade%20de%20Alface%20Vendido%20|%20Data"><button class="servicos-btn">Venda de Alface</button></a>
-              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaPeixe&label=Quantidade%20de%20Alface&title=Quantidade%20de%20Alface%20Vendido%20|%20Data"><button class="servicos-btn">Venda de Peixes</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaAlface&label=Venda%20de%20Alface&title=Venda%20de%20Alfaces%20|%20Data"><button class="servicos-btn">Venda de Alface</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeVendaPeixe&label=Venda%20dePeixes&title=Venda%20de%20Peixes%20|%20Data"><button class="servicos-btn">Venda de Peixes</button></a>
             </div>
           </div>
           
@@ -102,7 +102,7 @@
           <div class="accordion_item" style="background: white;">
             <div class="accordion_header">
               <span class="servicosspan">
-                Saúde do Sistema
+                Água e Alimentação
               </span>
               <div class="servicos_icon">
                 +
@@ -110,8 +110,8 @@
             </div>
   
             <div class="accordion_content">
-              <a href="servicos7.html"><button class="servicos-btn">Temperatura da Água</button></a>
-              <a href="servicos8.html"><button class="servicos-btn">Quantidade de Amônia na Água</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeAlimentoPeixe&label=Quantidade%20de%20Alimento&title=Quantidade%20de%20Alimento%20|%20Data"><button class="servicos-btn">Quantidade de alimento</button></a>
+              <a href="{% url 'DashAquaponia:dash' %}?parametroY=qtdeAgua&label=Quantidade%20de%20Água&title=Quantidade%20de%20Água%20Utilizada%20|%20Data"><button class="servicos-btn">Quantidade de água no tanque</button></a>
             </div>
           </div>
         </div>
