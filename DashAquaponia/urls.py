@@ -13,7 +13,7 @@ urlpatterns = [
     path('login/', views.LoginCadastroView, name="login"),
     path('home', views.HomeView.as_view(), name="home"),    
 
-    path('dashpadrao/', views.DashAlfacePadrão.as_view(), name="dashpadrao"),    
+    path('dashpadrao/', views.DashAlfacePadrao.as_view(), name="dashpadrao"),    
     path('dash/', views.DashModificar.as_view(), name="dash"),
     path('servicos/', views.ServicosView.as_view(), name="servicos"),
     path('registro/', views.CadastroDash.as_view(), name="registro"),

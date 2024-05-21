@@ -271,14 +271,14 @@ class DashModificar(TemplateView):
                 return render(request, "dash.html", contexto)
 
 
-class DashAlfacePadrão(TemplateView):
+class DashAlfacePadrao(TemplateView):
     def get(self, request):
-        if len(DashModel.objects.filter(idCliente=1)) > 0:
+        if len(DashModel.objects.filter(idCliente=3)) > 0:
             df = pd.DataFrame(
                 list(
                     DashModel.objects.values(
                         "dataInspecao", "qtdeAlfaceColhida"
-                    ).filter(idCliente=1)
+                    ).filter(idCliente=3)
                 )
             )
 
